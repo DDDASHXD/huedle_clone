@@ -1,7 +1,19 @@
+//import Game component
+import Game from './components/game';
+import React, {useEffect, useState} from 'react'
+
+import "./style/main.css";
+
+
 function App() {
+  const [backgroundColor, setBackgroundColor] = useState("");
   return (
-    <div className="App">
-      <h1>Huedle</h1>
+    <div className="App" style={{background: backgroundColor}}>
+      <div className="header">
+        <h1 className="gameTitle">Huedle</h1>
+        <p className="gameSubTitle">Wordle, but with hex colors</p>
+      </div>
+      <Game setBackgroundColor={(color) => setBackgroundColor(color)}/>
     </div>
   );
 }
