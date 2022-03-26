@@ -69,8 +69,33 @@ const Game = ({ setBackgroundColor }) => {
                 //localGuess = localGuess.slice(0, -1);
             }
         } else if (e.key === "Enter") {
-            if (currentBox === 7 && currentCol < 6) {
+            if (currentBox === 7 && currentCol < 8) {
                 setCurrentCol(currentCol + 1);
+                setCurrentBox(1);
+                setCurrentGuess("");
+                for (let i = 1; i < color.length; i++) {
+                    if (
+                        color.charAt(i) ===
+                        currentGuess.toUpperCase().charAt(i - 1)
+                    ) {
+                        document.getElementById(
+                            `col${currentCol}box${i}`
+                        ).style.backgroundColor = "green";
+                    } else if (
+                        color.includes(currentGuess.toUpperCase().charAt(i - 1))
+                    ) {
+                        document.getElementById(
+                            `col${currentCol}box${i}`
+                        ).style.backgroundColor = "gray";
+                    }
+                }
+                if (`#${currentGuess.toUpperCase()}` === color) {
+                    console.log("Correct!");
+                } else {
+                    console.log("Incorrect!");
+                }
+            } else if (currentBox === 7 && currentCol === 8) {
+                setCurrentCol(1);
                 setCurrentBox(1);
                 setCurrentGuess("");
                 for (let i = 1; i < color.length; i++) {
@@ -158,6 +183,22 @@ const Game = ({ setBackgroundColor }) => {
                         <div className="inputbox" id="col6box4"></div>
                         <div className="inputbox" id="col6box5"></div>
                         <div className="inputbox" id="col6box6"></div>
+                    </div>
+                    <div className="col" id="col7">
+                        <div className="inputbox" id="col7box1"></div>
+                        <div className="inputbox" id="col7box2"></div>
+                        <div className="inputbox" id="col7box3"></div>
+                        <div className="inputbox" id="col7box4"></div>
+                        <div className="inputbox" id="col7box5"></div>
+                        <div className="inputbox" id="col7box6"></div>
+                    </div>
+                    <div className="col" id="col8">
+                        <div className="inputbox" id="col8box1"></div>
+                        <div className="inputbox" id="col8box2"></div>
+                        <div className="inputbox" id="col8box3"></div>
+                        <div className="inputbox" id="col8box4"></div>
+                        <div className="inputbox" id="col8box5"></div>
+                        <div className="inputbox" id="col8box6"></div>
                     </div>
                 </div>
             </div>
