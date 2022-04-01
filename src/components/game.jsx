@@ -134,6 +134,7 @@ const Game = ({ setBackgroundColor }) => {
                 style={{ background: color }}
                 onKeyUp={(event) => test(event)}
                 tabindex="1"
+                id="gameView"
             >
                 <div className="cols">
                     <div className="col" id="col1">

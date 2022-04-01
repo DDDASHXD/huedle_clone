@@ -6,6 +6,11 @@ import "./style/main.css";
 
 
 function App() {
+  useEffect(() => {
+    const gameView = document.getElementById("gameView");
+  
+    gameView.focus();
+  })
   const [backgroundColor, setBackgroundColor] = useState("");
   return (
     <div className="App" style={{background: backgroundColor}}>
