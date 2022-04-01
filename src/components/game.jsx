@@ -29,8 +29,7 @@ const Game = ({ setBackgroundColor }) => {
                 color += letters[Math.floor(generatedColor / 16)];
                 color += letters[Math.floor(generatedColor) % 16];
                 sum -= generatedColor;
-            }
-            else {
+            } else {
                 color = randomColor();
             }
 
@@ -41,11 +40,11 @@ const Game = ({ setBackgroundColor }) => {
         setBackgroundColor(newRandomColor);
         console.log(newRandomColor);
     }, []);
-    
+
     const test = (e) => {
         const allowedLetters = /[0-9a-fA-F]+/;
         const inputboxes = document.querySelectorAll(".inputbox");
-        
+
         if (e.key !== "Backspace" && e.key !== "Enter" && e.key !== "Escape") {
             if (
                 allowedLetters.test(e.key) &&
@@ -73,9 +72,13 @@ const Game = ({ setBackgroundColor }) => {
                 setCurrentBox(1);
                 setCurrentGuess("");
                 for (let i = 1; i < color.length; i++) {
-                    let heat = parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) - parseInt(color.charAt(i), 16);
+                    let heat =
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) -
+                        parseInt(color.charAt(i), 16);
                     console.log(parseInt(color.charAt(i), 16));
-                    console.log(parseInt(currentGuess.toUpperCase().charAt(i - 1), 16));
+                    console.log(
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16)
+                    );
                     console.log(heat);
                     if (heat == 0) {
                         document.getElementById(
@@ -85,19 +88,18 @@ const Game = ({ setBackgroundColor }) => {
                         const letters = "0123456789ABCDEF";
                         let heatColor = 0;
                         if (heat > 0) {
-                            heat = Math.ceil(heat / 1.5) + 5
+                            heat = Math.ceil(heat / 1.5) + 5;
                             heatColor = "#" + letters[heat] + "00000";
                         } else {
-                            heat = Math.ceil(heat / 1.5) - 5
+                            heat = Math.ceil(heat / 1.5) - 5;
                             heatColor = "#0000" + letters[-heat] + "0";
                         }
-                        
+
                         console.log(heatColor);
                         document.getElementById(
                             `col${currentCol}box${i}`
                         ).style.backgroundColor = heatColor;
                     }
-                    
                 }
                 if (`#${currentGuess.toUpperCase()}` === color) {
                     console.log("Correct!");
@@ -109,9 +111,13 @@ const Game = ({ setBackgroundColor }) => {
                 setCurrentBox(1);
                 setCurrentGuess("");
                 for (let i = 1; i < color.length; i++) {
-                    let heat = parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) - parseInt(color.charAt(i), 16);
+                    let heat =
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) -
+                        parseInt(color.charAt(i), 16);
                     console.log(parseInt(color.charAt(i), 16));
-                    console.log(parseInt(currentGuess.toUpperCase().charAt(i - 1), 16));
+                    console.log(
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16)
+                    );
                     console.log(heat);
                     if (heat == 0) {
                         document.getElementById(
@@ -121,10 +127,10 @@ const Game = ({ setBackgroundColor }) => {
                         const letters = "0123456789ABCDEF";
                         let heatColor = 0;
                         if (heat > 0) {
-                            heat = Math.ceil(heat / 1.4) + 5
+                            heat = Math.ceil(heat / 1.4) + 5;
                             heatColor = "#" + letters[heat] + "00000";
                         } else {
-                            heat = Math.ceil(heat / 1.3) - 4
+                            heat = Math.ceil(heat / 1.3) - 4;
                             heatColor = "#0000" + letters[-heat] + "0";
                         }
 
@@ -151,7 +157,6 @@ const Game = ({ setBackgroundColor }) => {
         <>
             <div
                 className="gameView"
-                style={{ background: color }}
                 onKeyUp={(event) => test(event)}
                 tabindex="1"
                 id="gameView"
