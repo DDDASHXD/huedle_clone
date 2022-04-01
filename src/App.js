@@ -1,16 +1,17 @@
 //import Game component
 import Game from './components/game';
 import React, {useEffect, useState} from 'react'
+import ReactHowler from 'react-howler';
 
 import "./style/main.css";
 
 
 function App() {
-
+  const [audio, setAudio] = useState(null);
+  
   useEffect(() => {
     const gameView = document.getElementById("gameView");
     gameView.focus();
-    console.log("lmao")
   }, [])
   const [backgroundColor, setBackgroundColor] = useState("");
   return (

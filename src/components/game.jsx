@@ -1,5 +1,7 @@
 // import react
 import React, { useState, useEffect } from "react";
+import Type from "../audio/type.mp3";
+import Backspace from "../audio/backspace.mp3";
 
 // create function component called Game
 const Game = ({ setBackgroundColor }) => {
@@ -7,6 +9,8 @@ const Game = ({ setBackgroundColor }) => {
     const [currentBox, setCurrentBox] = useState(1);
     const [currentCol, setCurrentCol] = useState(1);
     const [currentGuess, setCurrentGuess] = useState("");
+    const [type, setType] = useState("");
+    const [backspace, setBackspace] = useState("");
     let localGuess = "abc";
     useEffect(() => {
         //generate random hex color
@@ -22,6 +26,9 @@ const Game = ({ setBackgroundColor }) => {
         setColor(newRandomColor);
         setBackgroundColor(newRandomColor);
         console.log(newRandomColor);
+
+        setType(new Audio(Type));
+        setBackspace(new Audio(Backspace));
     }, []);
 
     const test = (e) => {
@@ -58,6 +65,8 @@ const Game = ({ setBackgroundColor }) => {
                 ).innerHTML = e.key;
                 setCurrentBox(currentBox + 1);
                 setCurrentGuess(currentGuess + e.key);
+                type.currentTime = 0;
+                type.play();
             }
         } else if (e.key === "Backspace") {
             if (currentBox > 1) {
@@ -67,6 +76,8 @@ const Game = ({ setBackgroundColor }) => {
                 ).innerHTML = "";
                 setCurrentGuess(currentGuess.slice(0, -1));
                 //localGuess = localGuess.slice(0, -1);
+                backspace.currentTime = 0;
+                backspace.play();
             }
         } else if (e.key === "Enter") {
             if (currentBox === 7 && currentCol < 8) {
@@ -132,7 +143,7 @@ const Game = ({ setBackgroundColor }) => {
             <div
                 className="gameView"
                 style={{ background: color }}
-                onKeyUp={(event) => test(event)}
+                onKeyDown={(event) => test(event)}
                 tabindex="1"
                 id="gameView"
             >
