@@ -109,19 +109,29 @@ const Game = ({ setBackgroundColor }) => {
                 setCurrentBox(1);
                 setCurrentGuess("");
                 for (let i = 1; i < color.length; i++) {
-                    if (
-                        color.charAt(i) ===
-                        currentGuess.toUpperCase().charAt(i - 1)
-                    ) {
+                    let heat = parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) - parseInt(color.charAt(i), 16);
+                    console.log(parseInt(color.charAt(i), 16));
+                    console.log(parseInt(currentGuess.toUpperCase().charAt(i - 1), 16));
+                    console.log(heat);
+                    if (heat == 0) {
                         document.getElementById(
                             `col${currentCol}box${i}`
                         ).style.backgroundColor = "green";
-                    } else if (
-                        color.includes(currentGuess.toUpperCase().charAt(i - 1))
-                    ) {
+                    } else {
+                        const letters = "0123456789ABCDEF";
+                        let heatColor = 0;
+                        if (heat > 0) {
+                            heat = Math.ceil(heat / 1.4) + 5
+                            heatColor = "#" + letters[heat] + "00000";
+                        } else {
+                            heat = Math.ceil(heat / 1.3) - 4
+                            heatColor = "#0000" + letters[-heat] + "0";
+                        }
+
+                        console.log(heatColor);
                         document.getElementById(
                             `col${currentCol}box${i}`
-                        ).style.backgroundColor = "gray";
+                        ).style.backgroundColor = heatColor;
                     }
                 }
                 if (`#${currentGuess.toUpperCase()}` === color) {
