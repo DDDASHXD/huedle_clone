@@ -9,13 +9,31 @@ const Game = ({ setBackgroundColor }) => {
     const [currentGuess, setCurrentGuess] = useState("");
     let localGuess = "abc";
     useEffect(() => {
-        //generate random hex color
+        //generate random valid hex color with sum of 300
         const randomColor = () => {
             const letters = "0123456789ABCDEF";
+            let sum = 300;
             let color = "#";
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
+            let generatedColor = Math.random() * 255;
+            color += letters[Math.floor(generatedColor / 16)];
+            color += letters[Math.floor(generatedColor) % 16];
+            sum -= generatedColor;
+
+            generatedColor = Math.random() * 255;
+            color += letters[Math.floor(generatedColor / 16)];
+            color += letters[Math.floor(generatedColor) % 16];
+            sum -= generatedColor;
+
+            if (sum <= 255 && sum >= 0) {
+                generatedColor = sum;
+                color += letters[Math.floor(generatedColor / 16)];
+                color += letters[Math.floor(generatedColor) % 16];
+                sum -= generatedColor;
             }
+            else {
+                color = randomColor();
+            }
+
             return color;
         };
         const newRandomColor = randomColor();
@@ -23,30 +41,11 @@ const Game = ({ setBackgroundColor }) => {
         setBackgroundColor(newRandomColor);
         console.log(newRandomColor);
     }, []);
-
+    
     const test = (e) => {
-        //console.log(e.key);
         const allowedLetters = /[0-9a-fA-F]+/;
-        //console.log(allowedLetters.test(e.key));
         const inputboxes = document.querySelectorAll(".inputbox");
-
-        /*if (e.key !== "Backspace") {
-            if (allowedLetters.test(e.key) && e.key.length < 2) {
-                inputboxes[currentBox].innerHTML = e.key;
-                setCurrentBox(currentBox + 1);
-            }
-        } else if (e.key === "Backspace") {
-            if (currentBox > 0) {
-                setCurrentBox(currentBox - 1);
-                inputboxes[currentBox - 1].innerHTML = "";
-            }
-        } else if (e.key === "Enter") {
-            if (currentBox === 6) {
-                setCurrentCol(currentCol + 1);
-                setCurrentBox(0);
-            }
-        }*/
-
+        
         if (e.key !== "Backspace" && e.key !== "Enter" && e.key !== "Escape") {
             if (
                 allowedLetters.test(e.key) &&
