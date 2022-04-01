@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const gameView = document.getElementById("gameView");
     gameView.focus();
-
+    console.log("lmao")
   }, [])
   const [backgroundColor, setBackgroundColor] = useState("");
   return (
