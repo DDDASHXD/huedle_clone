@@ -29,8 +29,7 @@ const Game = ({ setBackgroundColor }) => {
                 color += letters[Math.floor(generatedColor / 16)];
                 color += letters[Math.floor(generatedColor) % 16];
                 sum -= generatedColor;
-            }
-            else {
+            } else {
                 color = randomColor();
             }
 
@@ -41,11 +40,11 @@ const Game = ({ setBackgroundColor }) => {
         setBackgroundColor(newRandomColor);
         console.log(newRandomColor);
     }, []);
-    
+
     const test = (e) => {
         const allowedLetters = /[0-9a-fA-F]+/;
         const inputboxes = document.querySelectorAll(".inputbox");
-        
+
         if (e.key !== "Backspace" && e.key !== "Enter" && e.key !== "Escape") {
             if (
                 allowedLetters.test(e.key) &&
@@ -68,24 +67,38 @@ const Game = ({ setBackgroundColor }) => {
                 //localGuess = localGuess.slice(0, -1);
             }
         } else if (e.key === "Enter") {
-            if (currentBox === 7 && currentCol < 8) {
+            if (currentBox === 7 && currentCol < 6) {
                 setCurrentCol(currentCol + 1);
                 setCurrentBox(1);
                 setCurrentGuess("");
                 for (let i = 1; i < color.length; i++) {
-                    if (
-                        color.charAt(i) ===
-                        currentGuess.toUpperCase().charAt(i - 1)
-                    ) {
+                    let heat =
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) -
+                        parseInt(color.charAt(i), 16);
+                    console.log(parseInt(color.charAt(i), 16));
+                    console.log(
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16)
+                    );
+                    console.log(heat);
+                    if (heat == 0) {
                         document.getElementById(
                             `col${currentCol}box${i}`
                         ).style.backgroundColor = "green";
-                    } else if (
-                        color.includes(currentGuess.toUpperCase().charAt(i - 1))
-                    ) {
+                    } else {
+                        const letters = "0123456789ABCDEF";
+                        let heatColor = 0;
+                        if (heat > 0) {
+                            heat = Math.ceil(heat / 1.5) + 5;
+                            heatColor = "#" + letters[heat] + "00000";
+                        } else {
+                            heat = Math.ceil(heat / 1.5) - 5;
+                            heatColor = "#0000" + letters[-heat] + "0";
+                        }
+
+                        console.log(heatColor);
                         document.getElementById(
                             `col${currentCol}box${i}`
-                        ).style.backgroundColor = "gray";
+                        ).style.backgroundColor = heatColor;
                     }
                 }
                 if (`#${currentGuess.toUpperCase()}` === color) {
@@ -93,24 +106,38 @@ const Game = ({ setBackgroundColor }) => {
                 } else {
                     console.log("Incorrect!");
                 }
-            } else if (currentBox === 7 && currentCol === 8) {
+            } else if (currentBox === 7 && currentCol === 6) {
                 setCurrentCol(1);
                 setCurrentBox(1);
                 setCurrentGuess("");
                 for (let i = 1; i < color.length; i++) {
-                    if (
-                        color.charAt(i) ===
-                        currentGuess.toUpperCase().charAt(i - 1)
-                    ) {
+                    let heat =
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) -
+                        parseInt(color.charAt(i), 16);
+                    console.log(parseInt(color.charAt(i), 16));
+                    console.log(
+                        parseInt(currentGuess.toUpperCase().charAt(i - 1), 16)
+                    );
+                    console.log(heat);
+                    if (heat == 0) {
                         document.getElementById(
                             `col${currentCol}box${i}`
                         ).style.backgroundColor = "green";
-                    } else if (
-                        color.includes(currentGuess.toUpperCase().charAt(i - 1))
-                    ) {
+                    } else {
+                        const letters = "0123456789ABCDEF";
+                        let heatColor = 0;
+                        if (heat > 0) {
+                            heat = Math.ceil(heat / 1.4) + 5;
+                            heatColor = "#" + letters[heat] + "00000";
+                        } else {
+                            heat = Math.ceil(heat / 1.3) - 4;
+                            heatColor = "#0000" + letters[-heat] + "0";
+                        }
+
+                        console.log(heatColor);
                         document.getElementById(
                             `col${currentCol}box${i}`
-                        ).style.backgroundColor = "gray";
+                        ).style.backgroundColor = heatColor;
                     }
                 }
                 if (`#${currentGuess.toUpperCase()}` === color) {
@@ -130,7 +157,6 @@ const Game = ({ setBackgroundColor }) => {
         <>
             <div
                 className="gameView"
-                style={{ background: color }}
                 onKeyUp={(event) => test(event)}
                 tabindex="1"
                 id="gameView"
@@ -183,22 +209,6 @@ const Game = ({ setBackgroundColor }) => {
                         <div className="inputbox" id="col6box4"></div>
                         <div className="inputbox" id="col6box5"></div>
                         <div className="inputbox" id="col6box6"></div>
-                    </div>
-                    <div className="col" id="col7">
-                        <div className="inputbox" id="col7box1"></div>
-                        <div className="inputbox" id="col7box2"></div>
-                        <div className="inputbox" id="col7box3"></div>
-                        <div className="inputbox" id="col7box4"></div>
-                        <div className="inputbox" id="col7box5"></div>
-                        <div className="inputbox" id="col7box6"></div>
-                    </div>
-                    <div className="col" id="col8">
-                        <div className="inputbox" id="col8box1"></div>
-                        <div className="inputbox" id="col8box2"></div>
-                        <div className="inputbox" id="col8box3"></div>
-                        <div className="inputbox" id="col8box4"></div>
-                        <div className="inputbox" id="col8box5"></div>
-                        <div className="inputbox" id="col8box6"></div>
                     </div>
                 </div>
             </div>
