@@ -15,7 +15,7 @@ function App() {
   }, [])
   const [backgroundColor, setBackgroundColor] = useState("");
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor: backgroundColor}}>
       <div className="header">
         <h1 className="gameTitle">Huedle</h1>
         <p className="gameSubTitle">Wordle, but with hex colors</p>
