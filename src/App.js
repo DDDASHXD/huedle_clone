@@ -15,12 +15,15 @@ function App() {
   }, [])
   const [backgroundColor, setBackgroundColor] = useState("");
   return (
-    <div className="App" style={{backgroundColor: backgroundColor}}>
-      <div className="header">
-        <h1 className="gameTitle">Huedle</h1>
-        <p className="gameSubTitle">Wordle, but with hex colors</p>
+    <div className="App">
+      <div className="wrapper" style={{backgroundColor: backgroundColor}}>
+        <div className="header">
+          <h1 className="gameTitle">Huedle</h1>
+          <p className="gameSubTitle">Wordle, but with hex colors</p>
+        </div>
+        <Game setBackgroundColor={(color) => setBackgroundColor(color)}/>
       </div>
-      <Game setBackgroundColor={(color) => setBackgroundColor(color)}/>
+      {/* toggle here */}
     </div>
   );
 }
