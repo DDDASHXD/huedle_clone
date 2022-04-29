@@ -21,13 +21,6 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
         : null;
     };
 
-    // function that checks if rgb color is a good contrast to white
-    /*const isGoodContrast = (rgb) => {
-      const { r, g, b } = hexToRgb(rgb);
-      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-      return brightness > 125;
-    };*/
-
     // function that checks if hex color is a good contrast to white
     const isGoodContrast = (hex) => {
       const { r, g, b } = hexToRgb(hex);
@@ -68,17 +61,25 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
     setColor(newRandomColor);
     props.setBackgroundColor(newRandomColor);
     console.log(newRandomColor);
+
     const inputBoxes = document.getElementsByClassName("inputbox");
+    const colorBoxes = document.getElementsByClassName("colorbox");
 
     if (isGoodContrast(newRandomColor)) {
       props.setTextColor("white");
-      for (let i = 0; i > inputBoxes.length; i++) {
-        inputBoxes[i].style.borderColor = "#ffffff69";
+      for (let i = 0; i < inputBoxes.length; i++) {
+        inputBoxes[i].style.border = "5px solid #ffffff69";
+      }
+      for (let i = 0; i < colorBoxes.length; i++) {
+        colorBoxes[i].style.border = "5px solid #ffffff69";
       }
     } else {
       props.setTextColor("black");
-      for (let i = 0; i > inputBoxes.length; i++) {
-        inputBoxes[i].style.borderColor = "#00000069";
+      for (let i = 0; i < inputBoxes.length; i++) {
+        inputBoxes[i].style.border = "5px solid #00000069";
+      }
+      for (let i = 0; i < colorBoxes.length; i++) {
+        colorBoxes[i].style.border = "5px solid #00000069";
       }
     }
   }, []);
