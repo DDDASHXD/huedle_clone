@@ -1,5 +1,6 @@
 // import react
 import React, { useState, useEffect } from "react";
+import { Modal, Button } from "@mantine/core";
 
 // create function component called Game
 const Game = (props, { setBackgroundColor, setTextColor }) => {
@@ -7,6 +8,9 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
   const [currentBox, setCurrentBox] = useState(1);
   const [currentCol, setCurrentCol] = useState(1);
   const [currentGuess, setCurrentGuess] = useState("");
+  const [gameLost, setGameLost] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
+
   let localGuess = "abc";
   useEffect(() => {
     //generate random valid hex color with sum of 350
@@ -105,6 +109,9 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
         //localGuess = localGuess.slice(0, -1);
       }
     } else if (e.key === "Enter") {
+      if (currentBox === 7 && currentCol === 6) {
+        setGameLost(true);
+      }
       if (currentBox === 7 && currentCol < 6) {
         setCurrentCol(currentCol + 1);
         setCurrentBox(1);
@@ -113,7 +120,6 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
           let heat =
             parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) -
             parseInt(color.charAt(i), 16);
-          console.log(heat);
           if (heat == 0) {
             document.getElementById(
               `col${currentCol}box${i}`
@@ -129,7 +135,6 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
               heatColor = "#0000" + letters[-heat] + "0";
             }
 
-            console.log(heatColor);
             document.getElementById(
               `col${currentCol}box${i}`
             ).style.backgroundColor = heatColor;
@@ -143,7 +148,7 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
           `col${currentCol}color2`
         ).style.backgroundColor = "#" + currentGuess.toString();
         if (`#${currentGuess.toUpperCase()}` === color) {
-          console.log("Correct!");
+          setGameWon(true);
         } else {
           console.log("Incorrect!");
         }
@@ -155,9 +160,6 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
           let heat =
             parseInt(currentGuess.toUpperCase().charAt(i - 1), 16) -
             parseInt(color.charAt(i), 16);
-          console.log(parseInt(color.charAt(i), 16));
-          console.log(parseInt(currentGuess.toUpperCase().charAt(i - 1), 16));
-          console.log(heat);
           if (heat == 0) {
             document.getElementById(
               `col${currentCol}box${i}`
@@ -173,7 +175,6 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
               heatColor = "#0000" + letters[-heat] + "0";
             }
 
-            console.log(heatColor);
             document.getElementById(
               `col${currentCol}box${i}`
             ).style.backgroundColor = heatColor;
@@ -198,6 +199,52 @@ const Game = (props, { setBackgroundColor, setTextColor }) => {
         tabindex="1"
         id="gameView"
       >
+        <Modal
+          opened={gameLost}
+          onClose={() => document.location.reload()}
+          title="You Lost"
+        >
+          <p>You didn't guess the correct color.</p>
+          <p>
+            The color was <span style={{ color: color }}>{color}</span>
+          </p>
+          <Button
+            style={{ marginTop: 20 }}
+            sx={(theme) => ({
+              backgroundColor: color,
+              "&:hover": {
+                backgroundColor: color,
+                filter: "brightness(120%)",
+              },
+            })}
+            onClick={() => document.location.reload()}
+          >
+            Try Again
+          </Button>
+        </Modal>
+        <Modal
+          opened={gameWon}
+          onClose={() => document.location.reload()}
+          title="You Won!"
+        >
+          <p>You guesed the correct color!</p>
+          <p>
+            The color was <span style={{ color: color }}>{color}</span>
+          </p>
+          <Button
+            style={{ marginTop: 20 }}
+            sx={(theme) => ({
+              backgroundColor: color,
+              "&:hover": {
+                backgroundColor: color,
+                filter: "brightness(120%)",
+              },
+            })}
+            onClick={() => document.location.reload()}
+          >
+            Try Again
+          </Button>
+        </Modal>
         <div className="cols">
           <div className="col" id="col1">
             <div className="inputbox" id="col1box1"></div>

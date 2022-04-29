@@ -89,4 +89,12 @@ body {
   font-size: 2rem;
   text-transform: uppercase;
 }
+
+.mantine-Modal-modal {
+  background: #1A1A1A;
+}
+
+.mantine-Modal-close:hover {
+  background: #383838;
+}
 /*# sourceMappingURL=main.css.map */
