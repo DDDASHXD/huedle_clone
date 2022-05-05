@@ -11,6 +11,7 @@ const label = { inputProps: { 'label': 'Switch demo' } };
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState("");
+  const [textColor, setTextColor] = useState("");
   const [checked, setChecked] = useState(false);
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -28,10 +29,10 @@ function App() {
     <div className="App">
       <div className="wrapper" style={{backgroundColor: backgroundColor}}>
         <div className="header">
-          <h1 className="gameTitle">Huedle</h1>
-          <p className="gameSubTitle">Wordle, but with hex colors</p>
+          <h1 className="gameTitle" style={{color: textColor}}>Huedle</h1>
+          <p className="gameSubTitle" style={{color: textColor}}>Wordle, but with hex colors</p>
         </div>
-        <Game setBackgroundColor={(color) => setBackgroundColor(color)} checked={checked}/>
+        <Game setBackgroundColor={(color) => setBackgroundColor(color)} checked={checked} setTextColor={(color) => setTextColor(color)}/>
       </div>
       <div class="switch">
         <Switch 

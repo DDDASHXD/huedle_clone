@@ -2,6 +2,7 @@
 * {
   margin: 0;
   padding: 0;
+  color: white;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
@@ -98,5 +99,13 @@ body {
 
 .switchText {
   color: red;
+}
+
+.mantine-Modal-modal {
+  background: #1A1A1A;
+}
+
+.mantine-Modal-close:hover {
+  background: #383838;
 }
 /*# sourceMappingURL=main.css.map */
