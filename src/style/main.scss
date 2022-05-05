@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: white;
     font-family: "Montserrat", sans-serif;
 }
 
@@ -81,4 +80,13 @@ body {
             }
         }
     }
+}
+
+.switch{
+    background: #2a2a2a;
+    text-align: center;
+}
+
+.switchText{
+    color: red;
 }

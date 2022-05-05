@@ -1,8 +1,11 @@
 // import react
 import React, { useState, useEffect } from "react";
 
+let hardMode = true;
+
 // create function component called Game
-const Game = ({ setBackgroundColor }) => {
+const Game = ({ setBackgroundColor, checked }) => {
+    hardMode = checked;
     const [color, setColor] = useState("");
     const [currentBox, setCurrentBox] = useState(1);
     const [currentCol, setCurrentCol] = useState(1);
@@ -44,7 +47,6 @@ const Game = ({ setBackgroundColor }) => {
     const test = (e) => {
         const allowedLetters = /[0-9a-fA-F]+/;
         const inputboxes = document.querySelectorAll(".inputbox");
-
         if (e.key !== "Backspace" && e.key !== "Enter" && e.key !== "Escape") {
             if (
                 allowedLetters.test(e.key) &&
@@ -83,13 +85,22 @@ const Game = ({ setBackgroundColor }) => {
                     } else {
                         const letters = "0123456789ABCDEF";
                         let heatColor = 0;
-                        if (heat > 0) {
-                            heat = Math.ceil(heat / 1.3) + 3;
-                            heatColor = "#" + letters[heat] + "00000";
+                        if(!hardMode){
+                            if (heat > 0) {
+                                heat = Math.ceil(heat / 1.3) + 3;
+                                heatColor = "#" + letters[heat] + "00000";
+                            } else {
+                                heat = Math.ceil(heat / 1.3) - 3;
+                                heatColor = "#0000" + letters[-heat] + "0";
+                            }
                         } else {
-                            heat = Math.ceil(heat / 1.3) - 3;
-                            heatColor = "#0000" + letters[-heat] + "0";
+                            if(heat > 0){
+                                heatColor = "#B00000";
+                            }else{
+                                heatColor = "#0000B0";
+                            }
                         }
+                       
 
                         console.log(heatColor);
                         document.getElementById(
@@ -129,12 +140,20 @@ const Game = ({ setBackgroundColor }) => {
                     } else {
                         const letters = "0123456789ABCDEF";
                         let heatColor = 0;
-                        if (heat > 0) {
-                            heat = Math.ceil(heat / 1.3) + 3;
-                            heatColor = "#" + letters[heat] + "00000";
+                        if(!hardMode){
+                            if (heat > 0) {
+                                heat = Math.ceil(heat / 1.3) + 3;
+                                heatColor = "#" + letters[heat] + "00000";
+                            } else {
+                                heat = Math.ceil(heat / 1.3) - 3;
+                                heatColor = "#0000" + letters[-heat] + "0";
+                            }
                         } else {
-                            heat = Math.ceil(heat / 1.3) - 3;
-                            heatColor = "#0000" + letters[-heat] + "0";
+                            if(heat > 0){
+                                heatColor = "#B00000";
+                            }else{
+                                heatColor = "#0000B0";
+                            }
                         }
 
                         console.log(heatColor);
@@ -161,7 +180,7 @@ const Game = ({ setBackgroundColor }) => {
             <div
                 className="gameView"
                 onKeyUp={(event) => test(event)}
-                tabindex="1"
+                tabIndex="1"
                 id="gameView"
             >
                 <div className="cols">
