@@ -34,7 +34,7 @@ function App() {
         </div>
         <Game setBackgroundColor={(color) => setBackgroundColor(color)} checked={checked} setTextColor={(color) => setTextColor(color)}/>
       </div>
-      <div class="switch">
+      <div className="switch">
         <Switch 
           {...label} 
           checked={checked} 
