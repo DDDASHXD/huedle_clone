@@ -116,7 +116,12 @@ const Game = (props) => {
             }
         } else if (e.key === "Enter") {
             if (currentBox === 7 && currentCol === 6) {
-              setGameLost(true);
+              setCurrentGuess("");
+              if (`#${currentGuess.toUpperCase()}` === color) {
+                setGameWon(true);
+              } else {
+                setGameLost(true);
+              }
             }
             if (currentBox === 7 && currentCol < 6) {
               setCurrentCol(currentCol + 1);
